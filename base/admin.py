@@ -1,8 +1,17 @@
 from django.contrib import admin
 from .models import *
-# Register your models here.
 
 admin.site.register(Category)
-admin.site.register(Event)
-admin.site.register(Dish)
-admin.site.register(Picture)
+admin.site.register(Specials)
+admin.site.register(AboutUs)
+
+
+@admin.register(Dish)
+class AdminDish(admin.ModelAdmin):
+    list_filter = ('in_category',)
+    prepopulated_fields = {"slug":("name",),}
+
+@admin.register(Event)
+class AdminDish(admin.ModelAdmin):
+    list_filter = ('name',)
+    prepopulated_fields = {"slug": ("name",), }
