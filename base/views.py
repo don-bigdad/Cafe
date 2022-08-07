@@ -7,6 +7,7 @@ def response_base(request):
     dish = Dish.objects.all()
     specials = Specials.objects.all()
     events = Event.objects.all()
-    about=AboutUs.objects.all()
-    data ={"categories":categories,"dish":dish,"events":events,"specials":specials,"about":about,}
+    about = AboutUs.objects.all()
+    photo = Galery.objects.all()
+    data ={"categories":categories,"dish":dish,"events":events,"specials":specials,"about":about,"photo":photo,}
     return render(request,"base.html",context=data)

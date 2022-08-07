@@ -4,6 +4,7 @@ from .models import *
 admin.site.register(Category)
 admin.site.register(Specials)
 admin.site.register(AboutUs)
+admin.site.register(Galery)
 
 
 @admin.register(Dish)

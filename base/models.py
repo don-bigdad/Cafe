@@ -76,10 +76,11 @@ class AboutUs(models.Model):
 
 class Specials(models.Model):
 
-    def get_date_name(self,filename:str) -> str:
-        file_ext="."+filename.strip().split(".")[-1]
-        date="Special"+str(datetime.datetime.now()).split(".")[0].replace(" ","-")+file_ext
-        return os.path.join("Specials/",date)
+    def get_date_name(self, filename: str) -> str:
+        file_ext = "." + filename.strip().split(".")[-1]
+        date = "Special" + str(datetime.datetime.now()).split(".")[0].replace(" ", "-") + file_ext
+        return os.path.join("Specials/", date)
+
     title = models.TextField(max_length=500)
     slug = models.SlugField(max_length=100, db_index=True)
     name = models.CharField(unique=True, max_length=30, db_index=True)
@@ -93,3 +94,16 @@ class Specials(models.Model):
 
     def __str__(self):
         return self.name
+
+class Galery(models.Model):
+    def get_date_name(self,filename:str) -> str:
+        file_ext = "." + filename.strip().split(".")[-1]
+        date = "RestaurantPhoto" + str(datetime.datetime.now()).split(".")[0].replace(" ", "-") + file_ext
+        return os.path.join("General_photos/", date)
+
+
+    picture = models.ImageField(upload_to=get_date_name)
+
+    class Meta:
+        verbose_name = "Фотографии"
+        verbose_name_plural = "Фотографии"
