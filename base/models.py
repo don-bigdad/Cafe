@@ -20,7 +20,7 @@ class Event(models.Model):
     def get_date_name(self, filename: str) -> str:
         file_ext = "." + filename.strip().split(".")[-1]
         date = "Party_picture"+str(datetime.datetime.now()).split(".")[0].replace(" ", "-") + file_ext
-        return os.path.join("dishes/", date)
+        return os.path.join("Events/", date)
 
     slug = models.SlugField(max_length=100,db_index=True)
     name = models.CharField(unique=True,max_length=100,db_index=True)
@@ -62,7 +62,7 @@ class Dish(models.Model):
         verbose_name_plural = "Блюда"
 
 class AboutUs(models.Model):
-
+    pozition = models.PositiveIntegerField(unique=True,blank=False)
     title = models.CharField(max_length=100)
     exactly_about_us = models.TextField(max_length = 2000)
 
@@ -70,17 +70,22 @@ class AboutUs(models.Model):
         verbose_name = "Про нас"
         verbose_name_plural = "Про нас"
 
+    def __str__(self):
+        return self.title
+
+
 class Specials(models.Model):
 
     def get_date_name(self,filename:str) -> str:
         file_ext="."+filename.strip().split(".")[-1]
         date="Special"+str(datetime.datetime.now()).split(".")[0].replace(" ","-")+file_ext
-        return os.path.join("dishes/",date)
-
+        return os.path.join("Specials/",date)
+    title = models.TextField(max_length=500)
     slug = models.SlugField(max_length=100, db_index=True)
     name = models.CharField(unique=True, max_length=30, db_index=True)
     about = models.TextField(max_length=2000)
     picture = models.ImageField(upload_to=get_date_name)
+    pozition = models.PositiveIntegerField()
 
     class Meta:
         verbose_name = "Cпециальные предложения"

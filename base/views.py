@@ -5,6 +5,8 @@ from .models import *
 def response_base(request):
     categories = Category.objects.all()
     dish = Dish.objects.all()
+    specials = Specials.objects.all()
     events = Event.objects.all()
-    data ={"categories":categories,"dish":dish,"events":events}
-    return render(request,"index.html",context=data)
+    about=AboutUs.objects.all()
+    data ={"categories":categories,"dish":dish,"events":events,"specials":specials,"about":about,}
+    return render(request,"base.html",context=data)
