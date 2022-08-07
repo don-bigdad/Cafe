@@ -101,7 +101,7 @@ class Galery(models.Model):
         date = "RestaurantPhoto" + str(datetime.datetime.now()).split(".")[0].replace(" ", "-") + file_ext
         return os.path.join("General_photos/", date)
 
-
+    pozition=models.PositiveIntegerField()
     picture = models.ImageField(upload_to=get_date_name)
 
     class Meta:
