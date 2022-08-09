@@ -7,24 +7,26 @@
         <div class="row">
             <div class="col-lg-12 d-flex justify-content-center">
                 <ul id="menu-flters">
+                    <li data-filter="*" class="filter-active">Усі страви</li>
                     {% for category in categories %}
-                    <li data-filter=".filter-{{ category.name }}">{{ category.name }}</li>
+                        {% if category.is_visible %}
+                            <li data-filter=".filter-category{{category.pk}}">{{ category.name }}</li>
+                        {% endif %}
                     {% endfor %}
-                    {# <li data-filter="*" class="filter-active">Show All</li> #}
                 </ul>
             </div>
         </div>
-
-         <div class="row menu-container">
-        {% for dish in dish %}
-        <div class="col-lg-6 menu-item filter-{{ dish.in_category.name }}">
-            <div class="menu-content">
-                <a href="#">{{ dish.name }}</a><span>${{ dish.price }}</span>
+     <div class="row menu-container">
+        {% for dish in dishes %}
+            <div class="col-lg-6 menu-item filter-category{{dish.in_category.pk }}">
+                <div class="menu-content">
+                    <a href="#">{{ dish.name }}</a><span>${{ dish.price }}</span>
+                </div>
+                <div class="menu-ingredients">
+                    {{ dish.ingredient}}
+                </div>
             </div>
-            <div class="menu-ingredients">
-                {{ dish.ingredient}}
-            </div>
-        </div>
         {% endfor %}
-    </div>
+        </div>
+     </div>
     </section><!-- End Menu Section -->
