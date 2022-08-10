@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 import os
+from django.core.validators import RegexValidator
 
 class Category(models.Model):
     name = models.CharField(unique=True,max_length=40,db_index=True)
@@ -41,7 +42,7 @@ class Dish(models.Model):
     def get_date_name(self,filename:str) -> str:
         file_ext="."+filename.strip().split(".")[-1]
         date="Typical_dish"+str(datetime.datetime.now()).split(".")[0].replace(" ","-")+file_ext
-        return os.path.join("dishes/",date)
+        return os.path.join("Dishes/",date)
 
     slug = models.SlugField(max_length=100,db_index=True)
     name = models.CharField(unique=True,max_length=30,db_index=True)
@@ -99,7 +100,7 @@ class Galery(models.Model):
     def get_date_name(self,filename:str) -> str:
         file_ext = "." + filename.strip().split(".")[-1]
         date = "RestaurantPhoto" + str(datetime.datetime.now()).split(".")[0].replace(" ", "-") + file_ext
-        return os.path.join("General_photos/", date)
+        return os.path.join("Restaurant/", date)
 
     pozition=models.PositiveIntegerField()
     picture = models.ImageField(upload_to=get_date_name)
@@ -107,3 +108,53 @@ class Galery(models.Model):
     class Meta:
         verbose_name = "Фотографии"
         verbose_name_plural = "Фотографии"
+
+class VideoAboutUs(models.Model):
+    def get_date_name(self, filename: str) -> str:
+        file_ext = "." + filename.strip().split(".")[-1]
+        date = "RestaurantPhoto" + str(datetime.datetime.now()).split(".")[0].replace(" ", "-") + file_ext
+        return os.path.join("Preview/", date)
+    def video_name(self, filename: str) -> str:
+        file_ext = "." + filename.strip().split(".")[-1]
+        date = "video" + str(datetime.datetime.now()).split(".")[0].replace(" ", "-") + file_ext
+        return os.path.join("Preview/", date)
+    text = models.TextField(max_length=2000)
+    preview = models.ImageField(upload_to=get_date_name)
+    video_link = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.text[:20]
+
+    class Meta:
+        verbose_name = "Обзорное видео"
+        verbose_name_plural = "Обзорное видео"
+
+class ReservationForm(models.Model):
+    mail_re = RegexValidator(regex=r'^[^-|_]\w*[-{0,1}]?\w*?[@]?\w*(.com)?$',message="Invalid mail")
+    phone_re = RegexValidator(regex=r'^[+]?\d{8,14}$',message="Invalid phone")
+    date_re = RegexValidator(regex=r'^(\d{1,2})([-: .]\d{1,2})?(-\d{4})?$',message="Invalid date")
+    time_re = RegexValidator(regex=r'^(\d{1,2})([-: ]\d{1,2})?$', message="Invalid time")
+    number_of_people_re = RegexValidator(regex=r'^[1-5][1-9]?$', message="Invalid time")
+    name = models.CharField(max_length=70)
+    mail = models.CharField(max_length=30,validators=[mail_re])
+    phone = models.CharField(max_length=15,validators=[phone_re])
+    date = models.CharField(max_length=20,validators=[date_re])
+    time = models.CharField(max_length=20,validators=[time_re])
+    number_of_people = models.SmallIntegerField(validators=[number_of_people_re])
+    text = models.TextField(max_length=500,blank=True)
+    is_processed = models.BooleanField(default=False)
+    timeadd = models.DateTimeField(auto_now=True)
+    class Meta:
+        ordering = ("-timeadd","-is_processed",)
+
+    def __str__(self):
+        return f'{self.name}({self.date})'
+
+class Contact(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
+    subject = models.CharField(max_length=70)
+    text = models.TextField(max_length=500)
+
+    def __str__(self):
+        return f'{self.name}.{self.text[:20]}'

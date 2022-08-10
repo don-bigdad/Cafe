@@ -5,6 +5,9 @@ admin.site.register(Category)
 admin.site.register(Specials)
 admin.site.register(AboutUs)
 admin.site.register(Galery)
+admin.site.register(VideoAboutUs)
+admin.site.register(ReservationForm)
+admin.site.register(Contact)
 
 
 @admin.register(Dish)
