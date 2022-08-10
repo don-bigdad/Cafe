@@ -155,6 +155,9 @@ class Contact(models.Model):
     email = models.CharField(max_length=50)
     subject = models.CharField(max_length=70)
     text = models.TextField(max_length=500)
-
+    done = models.BooleanField(default=False)
     def __str__(self):
         return f'{self.name}.{self.text[:20]}'
+
+    class Meta:
+        ordering = ("-done",)

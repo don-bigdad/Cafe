@@ -5,15 +5,13 @@ from .forms import ReservationForm,Contact
 
 def response_base(request):
     if request.method == "POST":
-        if not ReservationForm == None:
-            reservation = ReservationForm(request.POST)
-            if reservation.is_valid():
-                reservation.save()
-                return redirect('/')
-        else:
-            contact = Contact.objects.all()
-            contact.save()
-            return redirect("/")
+        reservation = ReservationForm(request.POST)
+        if reservation.is_valid():
+            reservation.save()
+            return redirect('/')
+        contact = Contact(request.POST)
+        contact.save()
+        return redirect("/")
 
     categories = Category.objects.all()
     dishes = Dish.objects.all()
@@ -25,6 +23,6 @@ def response_base(request):
     reservation = ReservationForm()
     contacts = Contact()
     data ={"categories":categories,"dishes":dishes,"events":events,"specials":specials,"about":about,"photo":photo,
-           "video":video,'reservation_form':reservation,"contacts":contacts
+           "video":video,'reservation_form':reservation,"contact":contacts
            }
     return render(request,"base.html",context=data)
