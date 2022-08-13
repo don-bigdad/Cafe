@@ -25,7 +25,7 @@ urlpatterns = [
     path('customer/',response_customer),
     path('manager/',include("manager.urls")),
     path('admin/', admin.site.urls),
-
+    path('index.html',response_base),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 
 ]

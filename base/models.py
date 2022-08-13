@@ -28,12 +28,13 @@ class Event(models.Model):
     description = models.TextField(unique=True,max_length=2000)
     event_price = models.PositiveIntegerField()
     picture = models.ImageField(upload_to=get_date_name)
+    date = models.DateField(blank=True,null=True)
 
     def __str__(self):
         return f'{self.name}'
 
     class Meta:
-        ordering = ("event_price",)
+        ordering = ("date",)
         verbose_name = "События"
         verbose_name_plural = "События"
 
