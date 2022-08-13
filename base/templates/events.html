@@ -6,13 +6,16 @@
         <div class="events-slider swiper">
           <div class="swiper-wrapper">
           {%for event in events %}
+              {% if event.date|timesince >= "1 sec"%}
+              {% else %}
             <div class="swiper-slide">
               <div class="row event-item">
                 <div class="col-lg-6">
-                  <img src="{{ event.picture.url}}" class="img-fluid" alt="">
+                  <img style="border-radius: 20px" src="{{ event.picture.url}}" class="img-fluid" alt="">
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0 content">
-                  <h3>{{event.name}} at {{ event.date }}</h3>
+                  <h3>{{event.name}}
+                      {% if event.name == "Custom Parties" %}{% else %} at {{ event.date }} {% endif %}</h3>
                   <div class="price">
                     <p><span>${{ event.event_price }}</span></p>
                   </div>
@@ -22,6 +25,7 @@
                     </div>
                 </div>
               </div>
+              {% endif  %}
               {% endfor %}
             </div>
           <div class="swiper-pagination"></div>
