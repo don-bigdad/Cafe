@@ -10,6 +10,8 @@ class UserRegistration(forms.ModelForm):
         "placeholder":"Username",
         "required":"",
         "id":"id_username",
+        "pattern":"[A-Za-z0-9]{4,20}",
+        "title": "minimal length of user field 4",
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         "type":"password",
