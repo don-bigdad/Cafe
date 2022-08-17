@@ -19,6 +19,8 @@ class UserRegistration(forms.ModelForm):
         "placeholder":"Password",
         "required":"",
         "id":"id_password",
+        "pattern": "[A-Za-z0-9]{4,20}",
+        "title": "minimal length of user field 4",
 
     }))
     repeat_password = forms.CharField(widget=forms.PasswordInput(attrs={
@@ -27,6 +29,8 @@ class UserRegistration(forms.ModelForm):
         "placeholder":"Repeat Password",
         "required":"",
         "id":"id_repeat_password",
+        "pattern": "[A-Za-z0-9]{4,20}",
+        "title": "minimal length of user field 4",
     }))
 
     def clean_repeat_password(self):
