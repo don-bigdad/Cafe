@@ -94,7 +94,6 @@ class Contact(forms.ModelForm):
     )
     email = forms.CharField(max_length=50, widget=forms.TextInput(attrs={
         "type": "email",
-
         "class": "form-control",
         "name": "email",
         "id": "email",

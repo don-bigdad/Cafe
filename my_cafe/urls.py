@@ -21,6 +21,7 @@ from customer.views import response_customer
 from base.views import response_base
 
 urlpatterns = [
+    path('account/',include("account.urls")),
     path('',response_base),
     path('customer/',response_customer),
     path('manager/',include("manager.urls")),
