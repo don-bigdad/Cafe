@@ -68,15 +68,9 @@
     <p>
         <a href="{% url "account:login"%}">Have an account?Click here to login</a> <br>
     </p>
-    <script>
-        document.getElementById("CreateUser").onclick = function (){
-            var name = document.getElementById('id_username').value;
-            let password = document.getElementById("id_password").value;
-            let repeat = document.getElementById("id_repeat_password").value;
-            if (password !==repeat)  alert("Password do not match");
-            else alert("Success! "+name+" Redirecting!");
-        }
-    </script>
+    {% for message in messages %}
+        {{message}}
+    {% endfor %}
 </body>
 
 </html>

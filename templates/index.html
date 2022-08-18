@@ -71,8 +71,6 @@
             {% endif %}
           <li class="dropdown"><a href="#"><span>More</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/account/registration/">Registration</a></li>
-                <li><a href="/account">Login</a></li>
                 <li><a href="/account/logout/">Logout</a></li>
             </ul>
           </li>
@@ -82,7 +80,14 @@
       </nav><!-- .navbar -->
 
       <a href="#book-a-table" class="book-a-table-btn scrollto">Book a table</a>
-
+    {% if request.user.is_authenticated %}
+         <a style="background-color: black" class="book-a-table-btn ">Hi {{ user.username }}</a>
+    {% else %}
+        <a href="/account/login/" style="background-color: black" class="book-a-table-btn ">Log In to see more</a>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <a href="/account/logout/" class="book-a-table-btn">logout</a>
+    {% endif %}
     </div>
   </header><!-- End Header -->
 

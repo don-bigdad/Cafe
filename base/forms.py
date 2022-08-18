@@ -33,6 +33,8 @@ class ReservationForm(forms.ModelForm):
         "id": "phone",
         "placeholder": "Your Phone",
         "data - rule": "minlen:4",
+        "pattern":"[0-9]{11}",
+        "title":"Wrong number,length of phone number must be 11",
         "data - msg": "Please enter at least 4 chars",
     })
                             )
@@ -45,7 +47,7 @@ class ReservationForm(forms.ModelForm):
         "data-rule": "minlen:4",
         "data - msg": "Please enter at least 4 chars",
     })
-                           )
+                    )
     time = forms.CharField(max_length=20, widget=forms.TextInput(attrs={
         "type": "text",
         "class": "form-control",
@@ -67,9 +69,7 @@ class ReservationForm(forms.ModelForm):
     })
     )
     text = forms.CharField(max_length=500, widget=forms.Textarea(attrs={
-
         "class": "form-control",
-        "name": "message",
         "rows": "5",
         "placeholder": "Message",
     })
@@ -110,7 +110,7 @@ class Contact(forms.ModelForm):
         "required": "",
     })
                               )
-    text = forms.CharField(max_length=500, widget=forms.Textarea(attrs={
+    text = forms.CharField(max_length=500,required=False, widget=forms.Textarea(attrs={
         "class": "form-control",
         "name": "message",
         "rows": "5",

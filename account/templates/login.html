@@ -55,6 +55,7 @@
 </head>
 
 <body>
+
 <h1>Login</h1>
     <form style="border-radius: 20px 20px 20px 20px;" class="box" method="POST" action="">
         {% csrf_token %}
@@ -65,6 +66,9 @@
     <p>
         <a href="{% url "account:registration"%}"> If you don't have an account click to register</a> <br>
     </p>
+    {% for message in messages %}
+        {{message}}
+    {% endfor %}
 </body>
 
 </html>
